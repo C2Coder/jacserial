@@ -47,30 +47,20 @@ def find_version(*file_paths):
     raise RuntimeError("Unable to find version string.")
 
 
-version = find_version('serial', '__init__.py')
+version = find_version('jacserial', '__init__.py')
 
 
 setup(
-    name="pyserial",
-    description="Python Serial Port Extension",
+    name="pyserial-jaculus",
+    description="Serial Lib for jaculus in Python",
     version=version,
-    author="Chris Liechti",
-    author_email="cliechti@gmx.net",
-    url="https://github.com/pyserial/pyserial",
-    packages=['serial', 'serial.tools', 'serial.urlhandler', 'serial.threaded'],
+    author="C2Coder",
+    author_email="jansky.stepan08@gmail.com",
+    url="https://github.com/c2coder/pyserial-jaculus",
+    packages=['jacserial', 'jacserial.tools', 'jacserial.urlhandler', 'jacserial.threaded'],
     license="BSD",
     long_description="""\
-Python Serial Port Extension for Win32, OSX, Linux, BSD, Jython, IronPython
-
-Stable:
-
-- Documentation: http://pythonhosted.org/pyserial/
-- Download Page: https://pypi.python.org/pypi/pyserial
-
-Latest:
-
-- Documentation: http://pyserial.readthedocs.io/en/latest/
-- Project Homepage: https://github.com/pyserial/pyserial
+Pyserial port for jaculus
 """,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
