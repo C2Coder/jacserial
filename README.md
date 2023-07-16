@@ -1,5 +1,5 @@
-# Jak instalovat (EN)
-Python3, pip musí být nainstalované,
+# Jak instalovat (CZ)
+Python3 a pip musí být nainstalované,
 git nemusí být nainstalovaný, ale je to doporučované.
 
 1. Stahování repozitáře (https://github.com/C2Coder/jacserial)
@@ -29,7 +29,7 @@ pip install ./jacserial-master.zip
 
 
 # How to install (EN)
-Python3, pip and git has to be installed,
+Python3 and pip has to be installed,
 git doesn´t have to be installed, but its recomended.
 
 1. Download the git repository (https://github.com/C2Coder/jacserial)
