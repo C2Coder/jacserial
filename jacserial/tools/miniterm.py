@@ -14,9 +14,9 @@ import os
 import sys
 import threading
 
-import serial
-from serial.tools.list_ports import comports
-from serial.tools import hexlify_codec
+import jacserial
+from jacserial.tools.list_ports import comports
+from jacserial.tools import hexlify_codec
 
 # pylint: disable=wrong-import-order,wrong-import-position
 
@@ -490,7 +490,7 @@ class Miniterm(object):
                 ('active' if self.serial.dsr else 'inactive'),
                 ('active' if self.serial.ri else 'inactive'),
                 ('active' if self.serial.cd else 'inactive')))
-        except serial.SerialException:
+        except jacserial.SerialException:
             # on RFC 2217 ports, it can happen if no modem state notification was
             # yet received. ignore this error.
             pass
@@ -515,7 +515,7 @@ class Miniterm(object):
                         for transformation in self.rx_transformations:
                             text = transformation.rx(text)
                         self.console.write(text)
-        except serial.SerialException:
+        except jacserial.SerialException:
             self.alive = False
             self.console.cancel()
             raise       # XXX handle instead of re-raise?
@@ -604,34 +604,34 @@ class Miniterm(object):
         elif c in 'bB':                         # B -> change baudrate
             self.change_baudrate()
         elif c == '8':                          # 8 -> change to 8 bits
-            self.serial.bytesize = serial.EIGHTBITS
+            self.serial.bytesize = jacserial.EIGHTBITS
             self.dump_port_settings()
         elif c == '7':                          # 7 -> change to 8 bits
-            self.serial.bytesize = serial.SEVENBITS
+            self.serial.bytesize = jacserial.SEVENBITS
             self.dump_port_settings()
         elif c in 'eE':                         # E -> change to even parity
-            self.serial.parity = serial.PARITY_EVEN
+            self.serial.parity = jacserial.PARITY_EVEN
             self.dump_port_settings()
         elif c in 'oO':                         # O -> change to odd parity
-            self.serial.parity = serial.PARITY_ODD
+            self.serial.parity = jacserial.PARITY_ODD
             self.dump_port_settings()
         elif c in 'mM':                         # M -> change to mark parity
-            self.serial.parity = serial.PARITY_MARK
+            self.serial.parity = jacserial.PARITY_MARK
             self.dump_port_settings()
         elif c in 'sS':                         # S -> change to space parity
-            self.serial.parity = serial.PARITY_SPACE
+            self.serial.parity = jacserial.PARITY_SPACE
             self.dump_port_settings()
         elif c in 'nN':                         # N -> change to no parity
-            self.serial.parity = serial.PARITY_NONE
+            self.serial.parity = jacserial.PARITY_NONE
             self.dump_port_settings()
         elif c == '1':                          # 1 -> change to 1 stop bits
-            self.serial.stopbits = serial.STOPBITS_ONE
+            self.serial.stopbits = jacserial.STOPBITS_ONE
             self.dump_port_settings()
         elif c == '2':                          # 2 -> change to 2 stop bits
-            self.serial.stopbits = serial.STOPBITS_TWO
+            self.serial.stopbits = jacserial.STOPBITS_TWO
             self.dump_port_settings()
         elif c == '3':                          # 3 -> change to 1.5 stop bits
-            self.serial.stopbits = serial.STOPBITS_ONE_POINT_FIVE
+            self.serial.stopbits = jacserial.STOPBITS_ONE_POINT_FIVE
             self.dump_port_settings()
         elif c in 'xX':                         # X -> change software flow control
             self.serial.xonxoff = (c == 'X')
@@ -728,7 +728,7 @@ class Miniterm(object):
             # save settings
             settings = self.serial.getSettingsDict()
             try:
-                new_serial = serial.serial_for_url(port, do_not_open=True)
+                new_serial = jacserial.serial_for_url(port, do_not_open=True)
                 # restore settings and open
                 new_serial.applySettingsDict(settings)
                 new_serial.rts = self.serial.rts
@@ -803,7 +803,7 @@ class Miniterm(object):
 ---    b          change baud rate
 ---    x X        disable/enable software flow control
 ---    r R        disable/enable hardware flow control
-""".format(version=getattr(serial, 'VERSION', 'unknown version'),
+""".format(version=getattr(jacserial, 'VERSION', 'unknown version'),
            exit=key_description(self.exit_character),
            menu=key_description(self.menu_character),
            rts=key_description('\x12'),
@@ -981,7 +981,7 @@ def main(default_port=None, default_baudrate=9600, default_rts=None, default_dtr
                 if not args.port:
                     parser.error('port is not given')
         try:
-            serial_instance = serial.serial_for_url(
+            serial_instance = jacserial.serial_for_url(
                 args.port,
                 args.baudrate,
                 parity=args.parity,
@@ -1002,11 +1002,11 @@ def main(default_port=None, default_baudrate=9600, default_rts=None, default_dtr
                     sys.stderr.write('--- forcing RTS {}\n'.format('active' if args.rts else 'inactive'))
                 serial_instance.rts = args.rts
 
-            if isinstance(serial_instance, serial.Serial):
+            if isinstance(serial_instance, jacserial.Serial):
                 serial_instance.exclusive = args.exclusive
 
             serial_instance.open()
-        except serial.SerialException as e:
+        except jacserial.SerialException as e:
             sys.stderr.write('could not open port {!r}: {}\n'.format(args.port, e))
             if args.develop:
                 raise

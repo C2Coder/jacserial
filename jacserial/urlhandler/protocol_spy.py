@@ -26,8 +26,8 @@ import logging
 import sys
 import time
 
-import serial
-from serial.serialutil import  to_bytes
+import jacserial
+from jacserial.serialutil import  to_bytes
 
 try:
     import urlparse
@@ -41,7 +41,7 @@ def sixteen(data):
     space after 8 bytes and (None, None) after 16 bytes and at the end.
     """
     n = 0
-    for b in serial.iterbytes(data):
+    for b in jacserial.iterbytes(data):
         yield ('{:02X} '.format(ord(b)), b.decode('ascii') if b' ' <= b < b'\x7f' else '.')
         n += 1
         if n == 8:
@@ -193,7 +193,7 @@ class FormatLogHex(FormatLog):
             self.log.info('TX {}{}'.format('{:04X}  '.format(offset), row))
 
 
-class Serial(serial.Serial):
+class Serial(jacserial.Serial):
     """\
     Inherit the native Serial port implementation and wrap all the methods and
     attributes.
@@ -205,16 +205,16 @@ class Serial(serial.Serial):
         self.formatter = None
         self.show_all = False
 
-    @serial.Serial.port.setter
+    @jacserial.Serial.port.setter
     def port(self, value):
         if value is not None:
-            serial.Serial.port.__set__(self, self.from_url(value))
+            jacserial.Serial.port.__set__(self, self.from_url(value))
 
     def from_url(self, url):
         """extract host and port from an URL string"""
         parts = urlparse.urlsplit(url)
         if parts.scheme != 'spy':
-            raise serial.SerialException(
+            raise jacserial.SerialException(
                 'expected a string in the form '
                 '"spy://port[?option[=value][&option[=value]]]": '
                 'not starting with spy:// ({!r})'.format(parts.scheme))
@@ -241,7 +241,7 @@ class Serial(serial.Serial):
                 else:
                     raise ValueError('unknown option: {!r}'.format(option))
         except ValueError as e:
-            raise serial.SerialException(
+            raise jacserial.SerialException(
                 'expected a string in the form '
                 '"spy://port[?option[=value][&option[=value]]]": {}'.format(e))
         self.formatter = formatter(output, color)
@@ -258,12 +258,12 @@ class Serial(serial.Serial):
             self.formatter.rx(rx)
         return rx
 
-    if hasattr(serial.Serial, 'cancel_read'):
+    if hasattr(jacserial.Serial, 'cancel_read'):
         def cancel_read(self):
             self.formatter.control('Q-RX', 'cancel_read')
             super(Serial, self).cancel_read()
 
-    if hasattr(serial.Serial, 'cancel_write'):
+    if hasattr(jacserial.Serial, 'cancel_write'):
         def cancel_write(self):
             self.formatter.control('Q-TX', 'cancel_write')
             super(Serial, self).cancel_write()
@@ -291,40 +291,40 @@ class Serial(serial.Serial):
         self.formatter.control('BRK', 'send_break {}s'.format(duration))
         super(Serial, self).send_break(duration)
 
-    @serial.Serial.break_condition.setter
+    @jacserial.Serial.break_condition.setter
     def break_condition(self, level):
         self.formatter.control('BRK', 'active' if level else 'inactive')
-        serial.Serial.break_condition.__set__(self, level)
+        jacserial.Serial.break_condition.__set__(self, level)
 
-    @serial.Serial.rts.setter
+    @jacserial.Serial.rts.setter
     def rts(self, level):
         self.formatter.control('RTS', 'active' if level else 'inactive')
-        serial.Serial.rts.__set__(self, level)
+        jacserial.Serial.rts.__set__(self, level)
 
-    @serial.Serial.dtr.setter
+    @jacserial.Serial.dtr.setter
     def dtr(self, level):
         self.formatter.control('DTR', 'active' if level else 'inactive')
-        serial.Serial.dtr.__set__(self, level)
+        jacserial.Serial.dtr.__set__(self, level)
 
-    @serial.Serial.cts.getter
+    @jacserial.Serial.cts.getter
     def cts(self):
         level = super(Serial, self).cts
         self.formatter.control('CTS', 'active' if level else 'inactive')
         return level
 
-    @serial.Serial.dsr.getter
+    @jacserial.Serial.dsr.getter
     def dsr(self):
         level = super(Serial, self).dsr
         self.formatter.control('DSR', 'active' if level else 'inactive')
         return level
 
-    @serial.Serial.ri.getter
+    @jacserial.Serial.ri.getter
     def ri(self):
         level = super(Serial, self).ri
         self.formatter.control('RI', 'active' if level else 'inactive')
         return level
 
-    @serial.Serial.cd.getter
+    @jacserial.Serial.cd.getter
     def cd(self):
         level = super(Serial, self).cd
         self.formatter.control('CD', 'active' if level else 'inactive')

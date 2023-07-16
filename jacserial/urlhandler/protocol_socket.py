@@ -28,7 +28,7 @@ try:
 except ImportError:
     import urllib.parse as urlparse
 
-from serial.serialutil import SerialBase, SerialException, to_bytes, \
+from jacserial.serialutil import SerialBase, SerialException, to_bytes, \
     PortNotOpenError, SerialTimeoutException, Timeout
 
 # map log level names to constants. used in from_url()

@@ -3,7 +3,7 @@
 # This is a module that gathers a list of serial ports including details on
 # GNU/Linux systems.
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
+# This file is part of pyjacSerial. https://github.com/pyserial/pyserial
 # (C) 2011-2015 Chris Liechti <cliechti@gmx.net>
 #
 # SPDX-License-Identifier:    BSD-3-Clause
@@ -12,7 +12,7 @@ from __future__ import absolute_import
 
 import glob
 import os
-from serial.tools import list_ports_common
+from jacserial.tools import list_ports_common
 
 
 class SysFS(list_ports_common.ListPortInfo):
@@ -97,7 +97,7 @@ def comports(include_links=False):
     devices.update(glob.glob('/dev/ttyAMA*'))   # ARM internal port (raspi)
     devices.update(glob.glob('/dev/rfcomm*'))   # BT serial devices
     devices.update(glob.glob('/dev/ttyAP*'))    # Advantech multi-port serial controllers
-    devices.update(glob.glob('/dev/ttyGS*'))    # https://www.kernel.org/doc/Documentation/usb/gadget_serial.txt
+    devices.update(glob.glob('/dev/ttyGS*'))    # https://www.kernel.org/doc/Documentation/usb/gadget_jacserial.txt
 
     if include_links:
         devices.update(list_ports_common.list_links(devices))

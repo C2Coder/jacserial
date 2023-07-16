@@ -9,7 +9,7 @@
 
 from __future__ import absolute_import
 
-from serial.serialutil import *
+from jacserial.serialutil import *
 
 
 def my_import(name):

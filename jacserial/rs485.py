@@ -16,7 +16,7 @@ NOTE: Some implementations may only support a subset of the settings.
 from __future__ import absolute_import
 
 import time
-import serial
+import jacserial
 
 
 class RS485Settings(object):

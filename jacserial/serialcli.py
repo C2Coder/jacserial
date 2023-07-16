@@ -11,7 +11,7 @@ from __future__ import absolute_import
 
 import System
 import System.IO.Ports
-from serial.serialutil import *
+from jacserial.serialutil import *
 
 # must invoke function with byte array, make a helper to convert strings
 # to byte arrays

@@ -22,8 +22,8 @@
 
 from __future__ import absolute_import
 
-import serial
-import serial.tools.list_ports
+import jacserial
+import jacserial.tools.list_ports
 
 try:
     basestring
@@ -31,17 +31,17 @@ except NameError:
     basestring = str    # python 3  pylint: disable=redefined-builtin
 
 
-class Serial(serial.Serial):
+class Serial(jacserial.Serial):
     """Just inherit the native Serial port implementation and patch the port property."""
     # pylint: disable=no-member
 
-    @serial.Serial.port.setter
+    @jacserial.Serial.port.setter
     def port(self, value):
         """translate port name before storing it"""
         if isinstance(value, basestring) and value.startswith('hwgrep://'):
-            serial.Serial.port.__set__(self, self.from_url(value))
+            jacserial.Serial.port.__set__(self, self.from_url(value))
         else:
-            serial.Serial.port.__set__(self, value)
+            jacserial.Serial.port.__set__(self, value)
 
     def from_url(self, url):
         """extract host and port from an URL string"""
@@ -68,11 +68,11 @@ class Serial(serial.Serial):
             else:
                 raise ValueError('unknown option: {!r}'.format(option))
         # use a for loop to get the 1st element from the generator
-        for port, desc, hwid in sorted(serial.tools.list_ports.grep(regexp)):
+        for port, desc, hwid in sorted(jacserial.tools.list_ports.grep(regexp)):
             if test_open:
                 try:
-                    s = serial.Serial(port)
-                except serial.SerialException:
+                    s = jacserial.Serial(port)
+                except jacserial.SerialException:
                     # it has some error, skip this one
                     continue
                 else:
@@ -82,7 +82,7 @@ class Serial(serial.Serial):
                 continue
             return port
         else:
-            raise serial.SerialException('no ports found matching regexp {!r}'.format(url))
+            raise jacserial.SerialException('no ports found matching regexp {!r}'.format(url))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if __name__ == '__main__':

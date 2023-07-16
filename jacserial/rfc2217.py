@@ -4,7 +4,7 @@
 # protocol to access serial ports over TCP/IP and allows setting the baud rate,
 # modem control lines etc.
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
+# This file is part of pyjacSerial. https://github.com/pyserial/pyserial
 # (C) 2001-2015 Chris Liechti <cliechti@gmx.net>
 #
 # SPDX-License-Identifier:    BSD-3-Clause
@@ -74,8 +74,8 @@ try:
 except ImportError:
     import queue as Queue
 
-import serial
-from serial.serialutil import SerialBase, SerialException, to_bytes, \
+import jacserial
+from jacserial.serialutil import SerialBase, SerialException, to_bytes, \
     iterbytes, PortNotOpenError, Timeout
 
 # port string is expected to be something like this:
@@ -207,18 +207,18 @@ PURGE_BOTH_BUFFERS = b'\x03'        # Purge both the access server receive data
 
 
 RFC2217_PARITY_MAP = {
-    serial.PARITY_NONE: 1,
-    serial.PARITY_ODD: 2,
-    serial.PARITY_EVEN: 3,
-    serial.PARITY_MARK: 4,
-    serial.PARITY_SPACE: 5,
+    jacserial.PARITY_NONE: 1,
+    jacserial.PARITY_ODD: 2,
+    jacserial.PARITY_EVEN: 3,
+    jacserial.PARITY_MARK: 4,
+    jacserial.PARITY_SPACE: 5,
 }
 RFC2217_REVERSE_PARITY_MAP = dict((v, k) for k, v in RFC2217_PARITY_MAP.items())
 
 RFC2217_STOPBIT_MAP = {
-    serial.STOPBITS_ONE: 1,
-    serial.STOPBITS_ONE_POINT_FIVE: 3,
-    serial.STOPBITS_TWO: 2,
+    jacserial.STOPBITS_ONE: 1,
+    jacserial.STOPBITS_ONE_POINT_FIVE: 3,
+    jacserial.STOPBITS_TWO: 2,
 }
 RFC2217_REVERSE_STOPBIT_MAP = dict((v, k) for k, v in RFC2217_STOPBIT_MAP.items())
 
@@ -573,7 +573,7 @@ class Serial(SerialBase):
             for option, values in urlparse.parse_qs(parts.query, True).items():
                 if option == 'logging':
                     logging.basicConfig()   # XXX is that good to call it here?
-                    self.logger = logging.getLogger('pySerial.rfc2217')
+                    self.logger = logging.getLogger('pyjacSerial.rfc2217')
                     self.logger.setLevel(LOGGER_LEVELS[values[0]])
                     self.logger.debug('enabled logging')
                 elif option == 'ign_set_control':
@@ -1014,10 +1014,10 @@ class PortManager(object):
         send updates on changes.
         """
         modemstate = (
-            (self.serial.cts and MODEMSTATE_MASK_CTS) |
-            (self.serial.dsr and MODEMSTATE_MASK_DSR) |
-            (self.serial.ri and MODEMSTATE_MASK_RI) |
-            (self.serial.cd and MODEMSTATE_MASK_CD))
+            (self.jacserial.cts and MODEMSTATE_MASK_CTS) |
+            (self.jacserial.dsr and MODEMSTATE_MASK_DSR) |
+            (self.jacserial.ri and MODEMSTATE_MASK_RI) |
+            (self.jacserial.cd and MODEMSTATE_MASK_CD))
         # check what has changed
         deltas = modemstate ^ (self.last_modemstate or 0)  # when last is None -> 0
         if deltas & MODEMSTATE_MASK_CTS:
@@ -1072,7 +1072,7 @@ class PortManager(object):
         for byte in filter(socket.recv(1024)):
             # do things like CR/LF conversion/whatever
             # and write data to the serial port
-            serial.write(byte)
+            jacserial.write(byte)
 
         (socket error handling code left as exercise for the reader)
         """
@@ -1151,86 +1151,86 @@ class PortManager(object):
             if self.logger:
                 self.logger.debug('received COM_PORT_OPTION: {!r}'.format(suboption))
             if suboption[1:2] == SET_BAUDRATE:
-                backup = self.serial.baudrate
+                backup = self.jacserial.baudrate
                 try:
                     (baudrate,) = struct.unpack(b"!I", suboption[2:6])
                     if baudrate != 0:
-                        self.serial.baudrate = baudrate
+                        self.jacserial.baudrate = baudrate
                 except ValueError as e:
                     if self.logger:
                         self.logger.error("failed to set baud rate: {}".format(e))
-                    self.serial.baudrate = backup
+                    self.jacserial.baudrate = backup
                 else:
                     if self.logger:
-                        self.logger.info("{} baud rate: {}".format('set' if baudrate else 'get', self.serial.baudrate))
-                self.rfc2217_send_subnegotiation(SERVER_SET_BAUDRATE, struct.pack(b"!I", self.serial.baudrate))
+                        self.logger.info("{} baud rate: {}".format('set' if baudrate else 'get', self.jacserial.baudrate))
+                self.rfc2217_send_subnegotiation(SERVER_SET_BAUDRATE, struct.pack(b"!I", self.jacserial.baudrate))
             elif suboption[1:2] == SET_DATASIZE:
-                backup = self.serial.bytesize
+                backup = self.jacserial.bytesize
                 try:
                     (datasize,) = struct.unpack(b"!B", suboption[2:3])
                     if datasize != 0:
-                        self.serial.bytesize = datasize
+                        self.jacserial.bytesize = datasize
                 except ValueError as e:
                     if self.logger:
                         self.logger.error("failed to set data size: {}".format(e))
-                    self.serial.bytesize = backup
+                    self.jacserial.bytesize = backup
                 else:
                     if self.logger:
-                        self.logger.info("{} data size: {}".format('set' if datasize else 'get', self.serial.bytesize))
-                self.rfc2217_send_subnegotiation(SERVER_SET_DATASIZE, struct.pack(b"!B", self.serial.bytesize))
+                        self.logger.info("{} data size: {}".format('set' if datasize else 'get', self.jacserial.bytesize))
+                self.rfc2217_send_subnegotiation(SERVER_SET_DATASIZE, struct.pack(b"!B", self.jacserial.bytesize))
             elif suboption[1:2] == SET_PARITY:
-                backup = self.serial.parity
+                backup = self.jacserial.parity
                 try:
                     parity = struct.unpack(b"!B", suboption[2:3])[0]
                     if parity != 0:
-                        self.serial.parity = RFC2217_REVERSE_PARITY_MAP[parity]
+                        self.jacserial.parity = RFC2217_REVERSE_PARITY_MAP[parity]
                 except ValueError as e:
                     if self.logger:
                         self.logger.error("failed to set parity: {}".format(e))
-                    self.serial.parity = backup
+                    self.jacserial.parity = backup
                 else:
                     if self.logger:
-                        self.logger.info("{} parity: {}".format('set' if parity else 'get', self.serial.parity))
+                        self.logger.info("{} parity: {}".format('set' if parity else 'get', self.jacserial.parity))
                 self.rfc2217_send_subnegotiation(
                     SERVER_SET_PARITY,
-                    struct.pack(b"!B", RFC2217_PARITY_MAP[self.serial.parity]))
+                    struct.pack(b"!B", RFC2217_PARITY_MAP[self.jacserial.parity]))
             elif suboption[1:2] == SET_STOPSIZE:
-                backup = self.serial.stopbits
+                backup = self.jacserial.stopbits
                 try:
                     stopbits = struct.unpack(b"!B", suboption[2:3])[0]
                     if stopbits != 0:
-                        self.serial.stopbits = RFC2217_REVERSE_STOPBIT_MAP[stopbits]
+                        self.jacserial.stopbits = RFC2217_REVERSE_STOPBIT_MAP[stopbits]
                 except ValueError as e:
                     if self.logger:
                         self.logger.error("failed to set stop bits: {}".format(e))
-                    self.serial.stopbits = backup
+                    self.jacserial.stopbits = backup
                 else:
                     if self.logger:
-                        self.logger.info("{} stop bits: {}".format('set' if stopbits else 'get', self.serial.stopbits))
+                        self.logger.info("{} stop bits: {}".format('set' if stopbits else 'get', self.jacserial.stopbits))
                 self.rfc2217_send_subnegotiation(
                     SERVER_SET_STOPSIZE,
-                    struct.pack(b"!B", RFC2217_STOPBIT_MAP[self.serial.stopbits]))
+                    struct.pack(b"!B", RFC2217_STOPBIT_MAP[self.jacserial.stopbits]))
             elif suboption[1:2] == SET_CONTROL:
                 if suboption[2:3] == SET_CONTROL_REQ_FLOW_SETTING:
-                    if self.serial.xonxoff:
+                    if self.jacserial.xonxoff:
                         self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_USE_SW_FLOW_CONTROL)
-                    elif self.serial.rtscts:
+                    elif self.jacserial.rtscts:
                         self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_USE_HW_FLOW_CONTROL)
                     else:
                         self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_USE_NO_FLOW_CONTROL)
                 elif suboption[2:3] == SET_CONTROL_USE_NO_FLOW_CONTROL:
-                    self.serial.xonxoff = False
-                    self.serial.rtscts = False
+                    self.jacserial.xonxoff = False
+                    self.jacserial.rtscts = False
                     if self.logger:
                         self.logger.info("changed flow control to None")
                     self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_USE_NO_FLOW_CONTROL)
                 elif suboption[2:3] == SET_CONTROL_USE_SW_FLOW_CONTROL:
-                    self.serial.xonxoff = True
+                    self.jacserial.xonxoff = True
                     if self.logger:
                         self.logger.info("changed flow control to XON/XOFF")
                     self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_USE_SW_FLOW_CONTROL)
                 elif suboption[2:3] == SET_CONTROL_USE_HW_FLOW_CONTROL:
-                    self.serial.rtscts = True
+                    self.jacserial.rtscts = True
                     if self.logger:
                         self.logger.info("changed flow control to RTS/CTS")
                     self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_USE_HW_FLOW_CONTROL)
@@ -1239,12 +1239,12 @@ class PortManager(object):
                         self.logger.warning("requested break state - not implemented")
                     pass  # XXX needs cached value
                 elif suboption[2:3] == SET_CONTROL_BREAK_ON:
-                    self.serial.break_condition = True
+                    self.jacserial.break_condition = True
                     if self.logger:
                         self.logger.info("changed BREAK to active")
                     self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_BREAK_ON)
                 elif suboption[2:3] == SET_CONTROL_BREAK_OFF:
-                    self.serial.break_condition = False
+                    self.jacserial.break_condition = False
                     if self.logger:
                         self.logger.info("changed BREAK to inactive")
                     self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_BREAK_OFF)
@@ -1253,12 +1253,12 @@ class PortManager(object):
                         self.logger.warning("requested DTR state - not implemented")
                     pass  # XXX needs cached value
                 elif suboption[2:3] == SET_CONTROL_DTR_ON:
-                    self.serial.dtr = True
+                    self.jacserial.dtr = True
                     if self.logger:
                         self.logger.info("changed DTR to active")
                     self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_DTR_ON)
                 elif suboption[2:3] == SET_CONTROL_DTR_OFF:
-                    self.serial.dtr = False
+                    self.jacserial.dtr = False
                     if self.logger:
                         self.logger.info("changed DTR to inactive")
                     self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_DTR_OFF)
@@ -1268,12 +1268,12 @@ class PortManager(object):
                     pass  # XXX needs cached value
                     #~ self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_RTS_ON)
                 elif suboption[2:3] == SET_CONTROL_RTS_ON:
-                    self.serial.rts = True
+                    self.jacserial.rts = True
                     if self.logger:
                         self.logger.info("changed RTS to active")
                     self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_RTS_ON)
                 elif suboption[2:3] == SET_CONTROL_RTS_OFF:
-                    self.serial.rts = False
+                    self.jacserial.rts = False
                     if self.logger:
                         self.logger.info("changed RTS to inactive")
                     self.rfc2217_send_subnegotiation(SERVER_SET_CONTROL, SET_CONTROL_RTS_OFF)
@@ -1312,18 +1312,18 @@ class PortManager(object):
                     self.logger.info("modem state mask: 0x{:02x}".format(self.modemstate_mask))
             elif suboption[1:2] == PURGE_DATA:
                 if suboption[2:3] == PURGE_RECEIVE_BUFFER:
-                    self.serial.reset_input_buffer()
+                    self.jacserial.reset_input_buffer()
                     if self.logger:
                         self.logger.info("purge in")
                     self.rfc2217_send_subnegotiation(SERVER_PURGE_DATA, PURGE_RECEIVE_BUFFER)
                 elif suboption[2:3] == PURGE_TRANSMIT_BUFFER:
-                    self.serial.reset_output_buffer()
+                    self.jacserial.reset_output_buffer()
                     if self.logger:
                         self.logger.info("purge out")
                     self.rfc2217_send_subnegotiation(SERVER_PURGE_DATA, PURGE_TRANSMIT_BUFFER)
                 elif suboption[2:3] == PURGE_BOTH_BUFFERS:
-                    self.serial.reset_input_buffer()
-                    self.serial.reset_output_buffer()
+                    self.jacserial.reset_input_buffer()
+                    self.jacserial.reset_output_buffer()
                     if self.logger:
                         self.logger.info("purge both")
                     self.rfc2217_send_subnegotiation(SERVER_PURGE_DATA, PURGE_BOTH_BUFFERS)

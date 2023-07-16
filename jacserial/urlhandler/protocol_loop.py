@@ -27,7 +27,7 @@ try:
 except ImportError:
     import Queue as queue
 
-from serial.serialutil import SerialBase, SerialException, to_bytes, iterbytes, SerialTimeoutException, PortNotOpenError
+from jacserial.serialutil import SerialBase, SerialException, to_bytes, iterbytes, SerialTimeoutException, PortNotOpenError
 
 # map log level names to constants. used in from_url()
 LOGGER_LEVELS = {

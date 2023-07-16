@@ -9,4 +9,4 @@
 
 from __future__ import absolute_import
 
-from serial.rfc2217 import Serial  # noqa
+from jacserial.rfc2217 import Serial  # noqa
