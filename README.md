@@ -1,6 +1,3 @@
-# JacSerial
-
-
 # Jak instalovat (EN)
 Python3, pip musí být nainstalované,
 git nemusí být nainstalovaný, ale je to doporučované.
@@ -28,6 +25,7 @@ pip install ./jacserial-master.zip
 ```
 
 3. To je vše
+
 
 
 # How to install (EN)
