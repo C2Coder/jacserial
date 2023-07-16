@@ -2,11 +2,7 @@
 #
 # Serial port enumeration. Console tool and backend selection.
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2011-2015 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
-
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 """\
 This module will provide a function called comports that returns an
 iterable (generator or list) that will enumerate available com ports. Note that

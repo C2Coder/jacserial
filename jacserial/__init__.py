@@ -2,10 +2,8 @@
 #
 # This is a wrapper module for different platform implementations
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2001-2020 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# This file is part of Jacserial. https://github.com/c2coder/jacserial
+
 
 from __future__ import absolute_import
 
@@ -15,7 +13,7 @@ import importlib
 from jacserial.serialutil import *
 #~ SerialBase, SerialException, to_bytes, iterbytes
 
-__version__ = '1.0'
+__version__ = '1.1'
 
 VERSION = __version__
 

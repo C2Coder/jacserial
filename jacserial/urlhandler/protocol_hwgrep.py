@@ -3,10 +3,7 @@
 # This module implements a special URL handler that uses the port listing to
 # find ports by searching the string descriptions.
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2011-2015 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 #
 # URL format:    hwgrep://<regexp>&<option>
 #

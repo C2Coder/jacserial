@@ -3,10 +3,7 @@
 # This is a module that gathers a list of serial ports including details on
 # GNU/Linux systems.
 #
-# This file is part of pyjacSerial. https://github.com/pyserial/pyserial
-# (C) 2011-2015 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 
 from __future__ import absolute_import
 

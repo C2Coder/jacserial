@@ -2,16 +2,13 @@
 #
 # Working with threading and pySerial
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2015-2016 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 """\
 Support threading with serial ports.
 """
 from __future__ import absolute_import
 
-import serial
+import jacserial
 import threading
 
 
@@ -99,7 +96,7 @@ class FramedPacket(Protocol):
 
     def data_received(self, data):
         """Find data enclosed in START/STOP, call handle_packet"""
-        for byte in serial.iterbytes(data):
+        for byte in jacserial.iterbytes(data):
             if byte == self.START:
                 self.in_packet = True
             elif byte == self.STOP:

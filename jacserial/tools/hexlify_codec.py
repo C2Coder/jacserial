@@ -2,10 +2,7 @@
 #
 # This is a codec to create and decode hexdumps with spaces between characters. used by miniterm.
 #
-# This file is part of pyjacSerial. https://github.com/pyserial/pyserial
-# (C) 2015-2016 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 """\
 Python 'hex' Codec - 2-digit hex with spaces content transfer encoding.
 

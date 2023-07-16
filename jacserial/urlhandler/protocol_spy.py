@@ -5,10 +5,7 @@
 # to debug the serial port traffic on every application that uses
 # serial_for_url.
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2015 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 #
 # URL format:    spy://port[?option[=value][&option[=value]]]
 # options:

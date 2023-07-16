@@ -3,11 +3,7 @@
 # This is a module that gathers a list of serial ports on POSIXy systems.
 # For some specific implementations, see also list_ports_linux, list_ports_osx
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2011-2015 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
-
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 """\
 The ``comports`` function is expected to return an iterable that yields tuples
 of 3 strings: port name, human readable description and a hardware ID.

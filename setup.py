@@ -1,4 +1,4 @@
-# setup.py for pySerial
+# setup.py for Jacserial
 #
 # Direct install (all systems):
 #   "python setup.py install"
@@ -6,9 +6,6 @@
 # For Python 3.x use the corresponding Python executable,
 # e.g. "python3 setup.py ..."
 #
-# (C) 2001-2020 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
 import io
 import os
 import re

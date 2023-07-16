@@ -2,30 +2,7 @@
 #
 # backend for serial IO for POSIX compatible systems, like Linux, OSX
 #
-# This file is part of pyjacSerial. https://github.com/pyserial/pyserial
-# (C) 2001-2020 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
-#
-# parts based on code from Grant B. Edwards  <grante@visi.com>:
-#  ftp://ftp.visi.com/users/grante/python/PosixjacSerial.py
-#
-# references: http://www.easysw.com/~mike/serial/jacserial.html
-
-# Collection of port names (was previously used by number_to_device which was
-# removed.
-# - Linux                   /dev/ttyS%d (confirmed)
-# - cygwin/win32            /dev/com%d (confirmed)
-# - openbsd (OpenBSD)       /dev/cua%02d
-# - bsd*, freebsd*          /dev/cuad%d
-# - darwin (OS X)           /dev/cuad%d
-# - netbsd                  /dev/dty%02d (NetBSD 1.6 testing by Erk)
-# - irix (IRIX)             /dev/ttyf%d (partially tested) names depending on flow control
-# - hp (HP-UX)              /dev/tty%dp0 (not tested)
-# - sunos (Solaris/SunOS)   /dev/tty%c (letters, 'a'..'z') (confirmed)
-# - aix (AIX)               /dev/tty%d
-
-
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 from __future__ import absolute_import
 
 # pylint: disable=abstract-method

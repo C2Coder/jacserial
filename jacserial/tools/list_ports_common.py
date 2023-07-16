@@ -3,10 +3,7 @@
 # This is a helper module for the various platform dependent list_port
 # implementations.
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2015 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 
 from __future__ import absolute_import
 

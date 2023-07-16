@@ -6,10 +6,7 @@
 # with contributions from cibomahto, dgs3, FarMcKon, tedbrandston
 # and modifications by cliechti, hoihu, hardkrash
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2013-2020
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 
 
 # List all of the callout devices in OS/X by querying IOKit.

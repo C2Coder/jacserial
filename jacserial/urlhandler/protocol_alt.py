@@ -3,10 +3,7 @@
 # This module implements a special URL handler that allows selecting an
 # alternate implementation provided by some backends.
 #
-# This file is part of pyjacSerial. https://github.com/pyserial/pyserial
-# (C) 2015 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 #
 # URL format:    alt://port[?option[=value][&option[=value]]]
 # options:

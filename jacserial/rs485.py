@@ -2,16 +2,7 @@
 
 # RS485 support
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2015 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
-
-"""\
-The settings for RS485 are stored in a dedicated object that can be applied to
-serial ports (where supported).
-NOTE: Some implementations may only support a subset of the settings.
-"""
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 
 from __future__ import absolute_import
 
@@ -34,7 +25,7 @@ class RS485Settings(object):
         self.delay_before_rx = delay_before_rx
 
 
-class RS485(serial.Serial):
+class RS485(jacserial.Serial):
     """\
     A subclass that replaces the write method with one that toggles RTS
     according to the RS485 settings.

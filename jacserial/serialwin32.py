@@ -2,12 +2,7 @@
 #
 # backend for Windows ("win32" incl. 32/64 bit support)
 #
-# (C) 2001-2020 Chris Liechti <cliechti@gmx.net>
-#
-# This file is part of pyjacSerial. https://github.com/pyserial/pyserial
-# SPDX-License-Identifier:    BSD-3-Clause
-#
-# Initial patch to use ctypes by Giovanni Bajo <rasky@develer.com>
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 
 from __future__ import absolute_import
 

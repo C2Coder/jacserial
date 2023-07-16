@@ -2,10 +2,7 @@
 #
 # Backend for .NET/Mono (IronPython), .NET >= 2
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2008-2015 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 
 from __future__ import absolute_import
 

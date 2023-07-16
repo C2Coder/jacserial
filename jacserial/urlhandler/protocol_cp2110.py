@@ -2,11 +2,7 @@
 #
 # Backend for Silicon Labs CP2110/4 HID-to-UART devices.
 #
-# This file is part of pyjacSerial. https://github.com/pyserial/pyserial
-# (C) 2001-2015 Chris Liechti <cliechti@gmx.net>
-# (C) 2019 Google LLC
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# This file is part of Jacerial. https://github.com/c2coder/jacserial
 
 # This backend implements support for HID-to-UART devices manufactured
 # by Silicon Labs and marketed as CP2110 and CP2114. The
