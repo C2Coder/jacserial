@@ -1,4 +1,4 @@
-# Jak instalovat (CZ)
+# Jak instalovat
 Python3 a pip musí být nainstalované,
 git nemusí být nainstalovaný, ale je to doporučované.
 
@@ -11,7 +11,6 @@ git clone https://github.com/C2Coder/jacserial
 
 - pokud nemáte, stáhněte si zip
 
-
 2. Instalace modulu pomocí pip
 
 - Pokud jste si stáhli repozitář pomocí gitu
@@ -23,34 +22,13 @@ pip install ./jacserial
 ```
 pip install ./jacserial-master.zip
 ```
+3. Knihovna pro Jaculus
+- Zkopírujte si knihovnu (jacserial.ts) ze složky jaculus-lib a dejte si jí do složky src/libs ve vašem jaculus projektu
+- Jaculus knihovna má jedinou funkci, jacserial.send() a do argumentu dáte string, který chcete poslat.
 
-3. To je vše
+- Python modul se používá stejně jako PySerial modul (jacserial je upravená kopie PySerial)
 
+- Ukázka kódu je ve složce examples, pokud něco budete potřebovat, napište mi na discord (@C2Coder)
 
+4. To je vše
 
-# How to install (EN)
-Python3 and pip has to be installed,
-git doesn´t have to be installed, but its recomended.
-
-1. Download the git repository
-
-- If you have git
-```
-git clone https://github.com/C2Coder/jacserial
-```
-
-- if you don´t, download zip from website
-
-2. Install the module using pip
-
-- if you git cloned the repository
-```
-pip install jacserial
-```
-
-- if you downloaded the zip
-```
-pip install jacserial-master.zip
-```
-
-3. Thats it
