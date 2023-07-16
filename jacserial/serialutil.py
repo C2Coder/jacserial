@@ -647,6 +647,19 @@ class SerialBase(io.RawIOBase):
         Read all bytes currently available in the buffer of the OS.
         """
         return self.read(self.in_waiting)
+    
+    def read_from_jac(self):
+        """\
+        Read string from jaculus device (jaculus.org).
+        """
+        try:
+            data = str(self.read(self.in_waiting))
+            index = data.index("|")
+            data = data[index+1:]
+            index = data.index("|")
+            return data[:index]
+        except:
+            return ""
 
     def read_until(self, expected=LF, size=None):
         """\
