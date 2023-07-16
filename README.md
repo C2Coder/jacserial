@@ -2,7 +2,7 @@
 Python3 a pip musí být nainstalované,
 git nemusí být nainstalovaný, ale je to doporučované.
 
-1. Stahování repozitáře (https://github.com/C2Coder/jacserial)
+1. Stahování repozitáře
 
 - Pokud máte git
 ```
@@ -32,7 +32,7 @@ pip install ./jacserial-master.zip
 Python3 and pip has to be installed,
 git doesn´t have to be installed, but its recomended.
 
-1. Download the git repository (https://github.com/C2Coder/jacserial)
+1. Download the git repository
 
 - If you have git
 ```
