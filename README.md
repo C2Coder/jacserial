@@ -13,15 +13,10 @@ git clone https://github.com/C2Coder/jacserial
 
 2. Instalace modulu pomocí pip
 
-- Pokud jste si stáhli repozitář pomocí gitu
 ```
-pip install ./jacserial
+pip install https://github.com/C2Coder/jacserial/archive/refs/tags/v1.1.zip
 ```
 
-- Pokud jste si stáhli zip
-```
-pip install ./jacserial-master.zip
-```
 3. Knihovna pro Jaculus
 - Zkopírujte si knihovnu (jacserial.ts) ze složky jaculus-lib a dejte si jí do složky src/libs ve vašem jaculus projektu
 - Jaculus knihovna má jedinou funkci, jacserial.send() a do argumentu dáte string, který chcete poslat.
@@ -31,4 +26,3 @@ pip install ./jacserial-master.zip
 - Ukázka kódu je ve složce examples, pokud něco budete potřebovat, napište mi na discord (@C2Coder)
 
 4. To je vše
-
