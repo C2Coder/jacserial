@@ -658,7 +658,9 @@ class SerialBase(io.RawIOBase):
             data = data[index+1:]
             index = data.index("|")
             return data[:index]
-        except:
+        except KeyboardInterrupt:
+            exit()
+        except ValueError:
             return ""
 
     def read_until(self, expected=LF, size=None):
