@@ -6,3 +6,7 @@
 export function send(data:any){
     console.log("|" + data + "|")
 }
+
+export function send_RoboPlace_cmd(command:string){
+    send("ELKS " + command)
+}
