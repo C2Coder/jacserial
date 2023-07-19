@@ -648,12 +648,12 @@ class SerialBase(io.RawIOBase):
         """
         return self.read(self.in_waiting)
     
-    def read_from_jac(self):
+    def readline_jac(self):
         """\
         Read string from jaculus device (jaculus.org).
         """
         try:
-            data = str(self.read(self.in_waiting))
+            data = str(self.readline())
             index = data.index("|")
             data = data[index+1:]
             index = data.index("|")
