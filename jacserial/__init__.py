@@ -13,7 +13,7 @@ import importlib
 from jacserial.serialutil import *
 #~ SerialBase, SerialException, to_bytes, iterbytes
 
-__version__ = '1.1'
+__version__ = '1.2'
 
 VERSION = __version__
 
