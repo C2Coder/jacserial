@@ -1,6 +1,5 @@
 # Jak instalovat
-Python3 a pip musí být nainstalované,
-git nemusí být nainstalovaný, ale je to doporučované.
+Python3 a pip musí být nainstalované.
 
 1. Instalace modulu pomocí pip
 
