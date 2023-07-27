@@ -4,7 +4,7 @@ Python3 a pip musí být nainstalované.
 1. Instalace modulu pomocí pip
 
 ```
-pip install https://github.com/C2Coder/jacserial/archive/refs/tags/v1.1.zip
+pip install https://github.com/C2Coder/jacserial/archive/refs/tags/v1.2.zip
 ```
 
 2. Knihovna pro Jaculus
