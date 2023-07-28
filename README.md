@@ -7,7 +7,7 @@ Python3 a pip musí být nainstalované.
 pip install https://github.com/C2Coder/jacserial/archive/refs/tags/v1.2.zip
 ```
 
-2. Knihovna pro Jaculus
+2. Knihovna pro Jaculus/ELKS
 - Zkopírujte si knihovnu (jacserial.ts) ze složky jaculus-lib a dejte si jí do složky src/libs ve vašem jaculus projektu
 - Jaculus knihovna má dvě funkce, 
     - jacserial.send() a do argumentu dáte string, který chcete poslat.
