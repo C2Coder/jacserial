@@ -8,7 +8,7 @@ pip install https://github.com/C2Coder/jacserial/archive/refs/tags/v1.2.zip
 ```
 
 2. Knihovna pro Jaculus/ELKS
-- Zkopírujte si knihovnu (jacserial.ts) ze složky jaculus-lib a dejte si jí do složky src/libs ve vašem jaculus projektu
+- Zkopírujte si knihovnu (jacserial.ts) ze složky jaculus-lib a dejte si jí do složky src/libs ve vašem jaculus projektu (tam kde je soubor colors.ts)
 - Jaculus knihovna má dvě funkce, 
     - jacserial.send() a do argumentu dáte string, který chcete poslat.
     - jacserial.send_RoboPlace_cmd() a do argumentu dáte string, který chcete poslat do RoboPlace, který vám můsí běžet na vašem pc.
